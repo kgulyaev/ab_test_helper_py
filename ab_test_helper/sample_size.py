@@ -12,7 +12,7 @@ def get_sample_size_for_binomial(p0, p1, power = 0.8, significance = 0.05):
 
 def get_sample_size_for_continuous(mu1, mu2, standard_deviation, power = 0.8, significance = 0.05):  
     gamma = (mu1 - mu2) / standard_deviation
-    z1 = norm(loc = 0, scale = 1).ppf(1 - significance / 2)
-    z2 = norm(loc = 0, scale = 1).ppf(power)
+    z1 = st.norm(loc = 0, scale = 1).ppf(1 - significance / 2)
+    z2 = st.norm(loc = 0, scale = 1).ppf(power)
     required_n = 2 * (z1 + z2) ** 2 / gamma ** 2
     return ceil(required_n)
