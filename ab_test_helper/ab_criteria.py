@@ -2,6 +2,8 @@ from scipy.stats import ttest_ind
 from scipy.stats import chi2_contingency
 from statsmodels.stats.proportion import proportions_ztest
 
+import numpy as np
+
 __author__ = 'Kirill Guliaev'
 
 def t_student(data1, data2):
