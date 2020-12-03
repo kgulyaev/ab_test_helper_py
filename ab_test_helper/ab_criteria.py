@@ -1,5 +1,7 @@
 from scipy.stats import ttest_ind
 from scipy.stats import chi2_contingency
+from scipy.stats import fisher_exact
+from scipy.stats import mannwhitneyu
 from statsmodels.stats.proportion import proportions_ztest
 
 import numpy as np
@@ -21,3 +23,12 @@ def chi_squared(successes_1, trials_1, successes_2, trials_2, yates_correction=T
 	table = [[successes_1, successes_2], [trials_1, trials_2]]
 	chi2_statistic, p_value, df, expected = chi2_contingency(table, correction=yates_correction)
 	return chi2_statistic, p_value
+
+def fisher(successes_1, trials_1, successes_2, trials_2):
+	table = [[successes_1, successes_2], [trials_1, trials_2]]
+	oddsratio, p_value = fisher_exact(table)
+	return oddsratio, p_value
+
+def mannwhitneyu(data1, data2):
+	u_stat, p_value = mannwhitneyu(data1, data2)
+	return u_stat, p_value
