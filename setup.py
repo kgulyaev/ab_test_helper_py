@@ -17,10 +17,6 @@ setup(
     url = "https://github.com/kgulyaev/ab_test_helper_py",
     packages=['ab_test_helper'],
     install_requires=[
-        "matplotlib",
-        "numpy",
-        "pandas",
-        "scipy",
         "statsmodels",
         "bootstrapped"
     ],
