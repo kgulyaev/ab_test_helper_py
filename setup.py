@@ -22,7 +22,6 @@ setup(
         "pandas",
         "scipy",
         "statsmodels",
-        "pylab",
         "bootstrapped"
     ],
     classifiers = [
