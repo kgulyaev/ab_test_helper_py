@@ -29,6 +29,6 @@ def fisher(successes_1, trials_1, successes_2, trials_2):
 	oddsratio, p_value = fisher_exact(table)
 	return oddsratio, p_value
 
-def mannwhitneyu(data1, data2):
+def mann_whitneyu(data1, data2):
 	u_stat, p_value = mannwhitneyu(data1, data2)
 	return u_stat, p_value
