@@ -10,7 +10,7 @@ def shapiro_wilk(data):
 	stat, p_value = shapiro(data)
 	return p_value
 
-def lilliefors(data):
+def lilliefors_kolmogorov(data):
 	stat, p_value = lilliefors(data)
 	return p_value
 
