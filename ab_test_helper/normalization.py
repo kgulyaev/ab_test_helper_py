@@ -6,11 +6,11 @@ import pylab
 
 __author__ = 'Kirill Guliaev'
 
-def shapiro(data):
+def shapiro_wilk(data):
 	stat, p_value = shapiro(data)
 	return p_value
 
-def Lilliefors(data):
+def lilliefors(data):
 	stat, p_value = lilliefors(data)
 	return p_value
 
