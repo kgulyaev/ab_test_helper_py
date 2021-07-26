@@ -97,7 +97,7 @@ def confidence_interval_of_mean(data, alpha = 0.05):
 
     Returns
     -------
-    bootstraped_interval : The bootstrap confidence interval for a given distribution.
+    bootstrapped_interval : The bootstrap confidence interval for a given distribution.
 	"""
-	bootstraped_interval = bs.bootstrap(data, stat_func=bs_stats.mean, alpha = alpha, return_distribution = False)
-	return bootstraped_interval
+	bootstrapped_interval = bs.bootstrap(data, stat_func=bs_stats.mean, alpha = alpha, return_distribution = False)
+	return bootstrapped_interval

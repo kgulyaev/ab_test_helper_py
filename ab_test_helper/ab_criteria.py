@@ -3,6 +3,9 @@ from scipy.stats import chi2_contingency
 from scipy.stats import fisher_exact
 from scipy.stats import mannwhitneyu
 from statsmodels.stats.proportion import proportions_ztest
+import bootstrapped.bootstrap as bs
+import bootstrapped.stats_functions as bs_stats
+import bootstrapped.compare_functions as bs_compare
 
 import numpy as np
 
@@ -71,7 +74,7 @@ def chi_squared(successes_1, trials_1, successes_2, trials_2, yates_correction=T
     p_value : The p-value of the test.
 	"""
 	table = [[successes_1, successes_2], [trials_1, trials_2]]
-	chi2_statistic, p_value, df, expected = chi2_contingency(table, correction=yates_correction)
+	chi2_statistic, p_value, df, expected = chi2_contingency(table, correction = yates_correction)
 	return p_value
 
 def fisher(successes_1, trials_1, successes_2, trials_2):
@@ -105,3 +108,33 @@ def mann_whitneyu(data1, data2):
 	"""
 	u_stat, p_value = mannwhitneyu(data1, data2)
 	return p_value
+
+def bootstrapped_mean_difference_distribution(data1, data2):
+	"""
+	Return the distribution of bootstrapped mean difference
+
+	Parameters
+    ----------
+    data1, data2 : One-dimension arrays.
+
+    Returns
+    -------
+    bootstrapped_mean_difference : Distribution of the mean difference
+	"""
+	bootstrapped_mean_difference = bs.bootstrap_ab(data1, data2, stat_func=bs_stats.mean, compare_func=bs_compare.difference, return_distribution = True)
+	return bootstrapped_mean_difference
+
+def bootstrapped_mean_difference_interval(data1, data2, alpha = 0.05):
+	"""
+	Return the difference of bootstrapped means
+
+	Parameters
+    ----------
+    data1, data2 : One-dimension arrays.
+
+    Returns
+    -------
+    bootstrapped_interval : The bootstrap confidence interval for a given distribution.
+	"""
+	bootstrapped_interval = bs.bootstrap_ab(data1, data2, stat_func=bs_stats.mean, compare_func=bs_compare.difference, alpha = alpha, return_distribution = False)
+	return bootstrapped_interval
