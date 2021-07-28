@@ -32,5 +32,5 @@ def chi_squared_segments(segment1_count, segment2_count):
     -------
     p_value :The p-value of the test
     """
-	chi2_statistic, p_value, df, expected = chi2_contingency([segment1_count, segment2_count])
+    chi2_statistic, p_value, df, expected = chi2_contingency([segment1_count, segment2_count])
 	return p_value
