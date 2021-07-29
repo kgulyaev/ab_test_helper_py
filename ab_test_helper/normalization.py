@@ -71,9 +71,42 @@ def normalize_boxcox(data):
 	normalized_data, _ = boxcox(data)
 	return normalized_data
 
-def distribution_of_mean(data):
+def distribution_of_mean_for_binomial(data):
 	"""
-	Returns bootstrapped mean distribution.
+	Returns bootstrapped mean distribution of binomial metric.
+
+	Parameters
+    ----------
+    data : One-dimension array of sample data with [0, 1] values.
+
+    Returns
+    -------
+    bootstrapped_mean : Distribution of the mean
+	"""
+	data['denominator'] = 1
+	bootstrapped_mean = bs.bootstrap(data, stat_func=bs_stats.sum, denominator_values = data['denominator'], return_distribution = True)
+	return bootstrapped_mean
+
+def confidence_interval_of_mean_for_binomial(data, alpha = 0.05):
+	"""
+	Returns bootstrapped mean interval of binomial metric.
+
+	Parameters
+    ----------
+    data : One-dimension array of sample data with [0, 1] values.
+    alpha : The alpha value for the confidence intervals.
+
+    Returns
+    -------
+    bootstrapped_interval : The bootstrap confidence interval for a given distribution.
+	"""
+	data['denominator'] = 1
+	bootstrapped_interval = bs.bootstrap(data, stat_func=bs_stats.sum, denominator_values = data['denominator'], alpha = alpha, return_distribution = False)
+	return bootstrapped_interval
+
+def distribution_of_mean_for_continuous(data):
+	"""
+	Returns bootstrapped mean distribution of continuous metric.
 
 	Parameters
     ----------
@@ -86,9 +119,9 @@ def distribution_of_mean(data):
 	bootstrapped_mean = bs.bootstrap(data, stat_func=bs_stats.mean, return_distribution = True)
 	return bootstrapped_mean
 
-def confidence_interval_of_mean(data, alpha = 0.05):
+def confidence_interval_of_mean_for_continuous(data, alpha = 0.05):
 	"""
-	Returns bootstrapped mean interval.
+	Returns bootstrapped mean interval of continuous metric.
 
 	Parameters
     ----------

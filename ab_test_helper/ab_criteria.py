@@ -109,9 +109,44 @@ def mann_whitneyu(data1, data2):
 	u_stat, p_value = mannwhitneyu(data1, data2)
 	return p_value
 
-def bootstrapped_mean_difference_distribution(data1, data2):
+def bootstrapped_mean_difference_distribution_for_binomial(data1, data2):
+    """
+    Return the distribution of bootstrapped mean difference for binomial metric
+
+    Parameters
+    ----------
+    data1, data2 : One-dimension arrays with [0, 1] values.
+
+    Returns
+    -------
+    bootstrapped_mean_difference : Distribution of the mean difference
+    """
+    data1['denominator'] = 1
+    data2['denominator'] = 1
+    bootstrapped_mean_difference = bs.bootstrap_ab(data1, data2, stat_func=bs_stats.sum, compare_func=bs_compare.difference, test_denominator = data1['denominator'], ctrl_denominator = data2['denominator'], return_distribution = True)
+    return bootstrapped_mean_difference
+
+def bootstrapped_mean_difference_interval_for_continuous(data1, data2, alpha = 0.05):
+    """
+    Return the difference of bootstrapped means for continuous metric
+
+    Parameters
+    ----------
+    data1, data2 : One-dimension arrays with [0, 1] values.
+    alpha : The alpha value for the confidence intervals.
+
+    Returns
+    -------
+    bootstrapped_interval : The bootstrap confidence interval for a given distribution.
+    """
+    data1['denominator'] = 1
+    data2['denominator'] = 1
+    bootstrapped_interval = bs.bootstrap_ab(data1, data2, stat_func=bs_stats.sum, compare_func=bs_compare.difference, test_denominator = data1['denominator'], ctrl_denominator = data2['denominator'], alpha = alpha, return_distribution = False)
+    return bootstrapped_interval
+
+def bootstrapped_mean_difference_distribution_for_continuous(data1, data2):
 	"""
-	Return the distribution of bootstrapped mean difference
+	Return the distribution of bootstrapped mean difference for continuous metric
 
 	Parameters
     ----------
@@ -124,13 +159,14 @@ def bootstrapped_mean_difference_distribution(data1, data2):
 	bootstrapped_mean_difference = bs.bootstrap_ab(data1, data2, stat_func=bs_stats.mean, compare_func=bs_compare.difference, return_distribution = True)
 	return bootstrapped_mean_difference
 
-def bootstrapped_mean_difference_interval(data1, data2, alpha = 0.05):
+def bootstrapped_mean_difference_interval_for_continuous(data1, data2, alpha = 0.05):
 	"""
-	Return the difference of bootstrapped means
+	Return the difference of bootstrapped means for continuous metric
 
 	Parameters
     ----------
     data1, data2 : One-dimension arrays.
+    alpha : The alpha value for the confidence intervals.
 
     Returns
     -------
