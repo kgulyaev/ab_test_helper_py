@@ -2,7 +2,7 @@ import seaborn as sns
 
 __author__ = 'Kirill Guliaev'
 
-def show_segments_splitting(df, user_id, segment_columns_array, split_column, height = 6, aspect = 2):
+def show_segments_splitting(df, user_id = 'user_id', segment_columns_array, split_column, height = 6, aspect = 2):
     """
     Show bar chart for the different segments of the sample
 
