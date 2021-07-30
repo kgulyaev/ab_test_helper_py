@@ -84,7 +84,7 @@ def distribution_of_mean_for_binomial(data):
     bootstrapped_mean : Distribution of the mean
 	"""
 	data['denominator'] = 1
-	bootstrapped_mean = bs.bootstrap(data, stat_func=bs_stats.sum, denominator_values = data['denominator'], return_distribution = True)
+	bootstrapped_mean = bs.bootstrap(data, stat_func=bs_stats.sum, denominator_values = data['denominator'].values, return_distribution = True)
 	return bootstrapped_mean
 
 def confidence_interval_of_mean_for_binomial(data, alpha = 0.05):
@@ -101,7 +101,7 @@ def confidence_interval_of_mean_for_binomial(data, alpha = 0.05):
     bootstrapped_interval : The bootstrap confidence interval for a given distribution.
 	"""
 	data['denominator'] = 1
-	bootstrapped_interval = bs.bootstrap(data, stat_func=bs_stats.sum, denominator_values = data['denominator'], alpha = alpha, return_distribution = False)
+	bootstrapped_interval = bs.bootstrap(data, stat_func=bs_stats.sum, denominator_values = data['denominator'].values, alpha = alpha, return_distribution = False)
 	return bootstrapped_interval
 
 def distribution_of_mean_for_continuous(data):
