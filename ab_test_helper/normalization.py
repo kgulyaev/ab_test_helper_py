@@ -71,29 +71,31 @@ def normalize_boxcox(data):
 	normalized_data, _ = boxcox(data)
 	return normalized_data
 
-def distribution_of_mean_for_binomial(data):
+def distribution_of_mean_for_binomial(data, column):
 	"""
 	Returns bootstrapped mean distribution of binomial metric.
 
 	Parameters
     ----------
-    data : One-dimension array of sample data with [0, 1] values.
+    data : dataframe of sample data.
+    column : Column name with [0, 1] values.
 
     Returns
     -------
     bootstrapped_mean : Distribution of the mean
 	"""
 	data['denominator'] = 1
-	bootstrapped_mean = bs.bootstrap(data, stat_func=bs_stats.sum, denominator_values = data['denominator'].values, return_distribution = True)
+	bootstrapped_mean = bs.bootstrap(data[column].values, stat_func=bs_stats.sum, denominator_values = data['denominator'].values, return_distribution = True)
 	return bootstrapped_mean
 
-def confidence_interval_of_mean_for_binomial(data, alpha = 0.05):
+def confidence_interval_of_mean_for_binomial(data, column, alpha = 0.05):
 	"""
 	Returns bootstrapped mean interval of binomial metric.
 
 	Parameters
     ----------
-    data : One-dimension array of sample data with [0, 1] values.
+    data : dataframe of sample data.
+    column : Column name with [0, 1] values.
     alpha : The alpha value for the confidence intervals.
 
     Returns
@@ -101,7 +103,7 @@ def confidence_interval_of_mean_for_binomial(data, alpha = 0.05):
     bootstrapped_interval : The bootstrap confidence interval for a given distribution.
 	"""
 	data['denominator'] = 1
-	bootstrapped_interval = bs.bootstrap(data, stat_func=bs_stats.sum, denominator_values = data['denominator'].values, alpha = alpha, return_distribution = False)
+	bootstrapped_interval = bs.bootstrap(data[column].values, stat_func=bs_stats.sum, denominator_values = data['denominator'].values, alpha = alpha, return_distribution = False)
 	return bootstrapped_interval
 
 def distribution_of_mean_for_continuous(data):
